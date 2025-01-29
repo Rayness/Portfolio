@@ -210,3 +210,55 @@ if (savedTheme === "dark") {
 } else {
     updateParticleColors(false);
 }
+
+
+// Модальные окна
+// script.js
+
+// Открытие модальных окон
+document.querySelectorAll(".view-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+        const modalId = button.getAttribute("data-modal");
+        const modal = document.getElementById(modalId);
+        modal.style.display = "block";
+    });
+});
+
+// Закрытие модальных окон
+document.querySelectorAll(".close").forEach((closeButton) => {
+    closeButton.addEventListener("click", () => {
+        const modal = closeButton.closest(".modal");
+        modal.style.display = "none";
+    });
+});
+
+// Закрытие модального окна при клике вне его области
+window.addEventListener("click", (event) => {
+    if (event.target.classList.contains("modal")) {
+        event.target.style.display = "none";
+    }
+});
+
+// Слайдер для изображений
+document.querySelectorAll(".modal").forEach((modal) => {
+    const slides = modal.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        const slideWidth = modal.querySelector(".slides").clientWidth;
+        modal.querySelector(".slides").style.transform = `translateX(-${index * slideWidth}px)`;
+        slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+    }
+
+    modal.querySelector(".prev-slide").addEventListener("click", () => {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    modal.querySelector(".next-slide").addEventListener("click", () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    showSlide(currentSlide);
+});

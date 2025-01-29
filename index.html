@@ -46,21 +46,57 @@
             <div class="container">
                 <h2>Мои работы</h2>
                 <div class="projects">
+                    <!-- Проект 1 -->
                     <div class="project">
                         <img src="assets/project1.png" alt="Проект 1">
                         <h3>YT-Downloader</h3>
                         <p>Небольшое приложения для загрузки видео и аудио с видеохостинга YouTube. Технологии: Python.</p>
-                        <a href="https://github.com/Rayness/YouTube-Downloader" target="_blank" class="btn">Посмотреть</a>
+                        <button class="btn view-btn" data-modal="modal1">Посмотреть</button>
                     </div>
+                    <!-- Проект 2 -->
                     <div class="project">
                         <img src="assets/project2.png" alt="Проект 2">
                         <h3>Personal Music Player</h3>
                         <p>Музыкальный плеер, для прослушивания своей музыки в любой точке мира. На этапе разработки. Технологии: HTML, CSS, JavaScript, Python</p>
-                        <a href="https://github.com/Rayness/personalplayer" target="_blank" class="btn">Посмотреть</a>
+                        <button class="btn view-btn" data-modal="modal2">Посмотреть</button>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Модальные окна -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>YT-Downloader</h2>
+                <p><strong>Описание:</strong> Очень небольшое приложения для загрузки видео и аудио с видеохостинга YouTube, написанное на Python и немного заброшенное. Есть как консольная версия, так и GUI, которые ещё в разработке.</p>
+                <p><strong>Технологии:</strong> Pynton</p>
+                <p><strong>Статус:</strong> Заморожен</p>
+                <p><strong>Дата завершения:</strong> Ноябрь 2024</p>
+                        <!-- Слайдер -->
+                <div class="slider">
+                    <div class="slides">
+                        <img src="assets/project1-slide1.png" alt="Скриншот 1" class="slide active">
+                        <img src="assets/project1-slide2.png" alt="Скриншот 2" class="slide">
+                        <img src="assets/project1-slide3.png" alt="Скриншот 3" class="slide">
+                    </div>
+                    <button class="prev-slide">←</button>
+                    <button class="next-slide">→</button>
+                </div>
+                <a href="https://example.com" target="_blank" class="btn">Ссылка на проект</a>
+                <a href="https://github.com/Rayness/YouTube-Downloader" target="_blank" class="btn">GitHub</a>
+            </div>
+        </div>
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Проект 2</h2>
+                <p>Это подробное описание проекта 2. Здесь можно разместить больше информации о проекте, технологии, скриншоты и ссылки.</p>
+                <a href="https://example.com" target="_blank" class="btn">Ссылка на проект</a>
+                <a href="https://github.com/Rayness/personalplayer" target="_blank" class="btn">GitHub</a>
+            </div>
+        </div>
         <!-- Раздел "Навыки" -->
         <section id="skills" class="section skills">
             <div class="container">
