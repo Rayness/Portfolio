@@ -29,8 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Частицы
 
-// script.js
-
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -50,10 +48,9 @@ class Particle {
         this.speedX = speedX;
         this.speedY = speedY;
         this.depth = depth;
-        this.color = "#fff";
+        this.color = "#fff"; // Начальный цвет (для светлой темы)
         this.parallaxOffsetX = 0;
         this.parallaxOffsetY = 0;
-        this.frequency = Math.random() * 0.05 + 0.01; // Частота анимации для каждой частицы
     }
 
     draw() {
@@ -104,6 +101,8 @@ window.addEventListener("mousemove", (event) => {
     cursorY = event.clientY;
 });
 
+// script.js
+
 let time = 0; // Переменная времени для анимации
 
 function connectParticles() {
@@ -122,19 +121,9 @@ function connectParticles() {
             if (distance < connectionDistance) {
                 const opacity = 1 - distance / connectionDistance; // Прозрачность
                 const baseLineWidth = 2 - distance / connectionDistance; // Базовая толщина линии
-                const animatedLineWidth = baseLineWidth + Math.sin(time * particlesArray[a].frequency) * 0.5; // Анимация толщины
+                const animatedLineWidth = baseLineWidth + Math.sin(time) * 0.5; // Анимация толщины
 
-                // Градиентный цвет линии
-                const gradient = ctx.createLinearGradient(
-                    particlesArray[a].x + particlesArray[a].parallaxOffsetX,
-                    particlesArray[a].y + particlesArray[a].parallaxOffsetY,
-                    particlesArray[b].x + particlesArray[b].parallaxOffsetX,
-                    particlesArray[b].y + particlesArray[b].parallaxOffsetY
-                );
-                gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-                gradient.addColorStop(1, `rgba(100, 200, 255, ${opacity})`);
-
-                ctx.strokeStyle = gradient;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
                 ctx.lineWidth = animatedLineWidth; // Устанавливаем анимированную толщину
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x + particlesArray[a].parallaxOffsetX, particlesArray[a].y + particlesArray[a].parallaxOffsetY);
@@ -153,32 +142,14 @@ function connectParticles() {
         if (distanceToCursor < connectionDistance) {
             const opacity = 1 - distanceToCursor / connectionDistance; // Прозрачность
             const baseLineWidth = 2 - distanceToCursor / connectionDistance; // Базовая толщина линии
-            const animatedLineWidth = baseLineWidth + Math.sin(time * particle.frequency) * 0.5; // Анимация толщины
+            const animatedLineWidth = baseLineWidth + Math.sin(time) * 0.5; // Анимация толщины
 
-            // Градиентный цвет линии
-            const gradient = ctx.createLinearGradient(
-                particle.x + particle.parallaxOffsetX,
-                particle.y + particle.parallaxOffsetY,
-                cursorX,
-                cursorY
-            );
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-            gradient.addColorStop(1, `rgba(100, 200, 255, ${opacity})`);
-
-            ctx.strokeStyle = gradient;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
             ctx.lineWidth = animatedLineWidth; // Устанавливаем анимированную толщину
             ctx.beginPath();
             ctx.moveTo(particle.x + particle.parallaxOffsetX, particle.y + particle.parallaxOffsetY);
             ctx.lineTo(cursorX, cursorY);
             ctx.stroke();
-
-            // Звуковой эффект
-            if (distanceToCursor < 50 && !particle.soundPlayed) {
-                playSound();
-                particle.soundPlayed = true; // Чтобы звук не повторялся
-            } else if (distanceToCursor >= 50) {
-                particle.soundPlayed = false; // Сбрасываем флаг
-            }
         }
     });
 }
@@ -239,74 +210,3 @@ if (savedTheme === "dark") {
 } else {
     updateParticleColors(false);
 }
-
-// Звуковой эффект
-function playSound() {
-    const sound = new Audio("assets/sound.mp3"); // Путь к звуковому файлу
-    sound.volume = 0.2; // Громкость
-    sound.play();
-}
-
-
-const waterCanvas = document.createElement("canvas");
-waterCanvas.width = window.innerWidth;
-waterCanvas.height = window.innerHeight;
-document.body.appendChild(waterCanvas);
-const waterCtx = waterCanvas.getContext("2d");
-
-// Создаём массив для хранения волн
-const waves = [];
-for (let i = 0; i < 500; i++) {
-    waves.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        size: Math.random() * 5 + 2,
-        speed: Math.random() * 0.5 + 0.1,
-        angle: Math.random() * Math.PI * 2,
-    });
-}
-
-// Функция для обновления волн
-function updateWaves() {
-    waterCtx.clearRect(0, 0, waterCanvas.width, waterCanvas.height);
-
-    // Рисуем градиентный фон
-    const gradient = waterCtx.createLinearGradient(0, 0, 0, window.innerHeight);
-    gradient.addColorStop(0, "rgba(0, 50, 100, 0.8)");
-    gradient.addColorStop(1, "rgba(0, 100, 200, 0.8)");
-    waterCtx.fillStyle = gradient;
-    waterCtx.fillRect(0, 0, waterCanvas.width, waterCanvas.height);
-
-    // Обновляем каждую волну
-    waves.forEach((wave) => {
-        wave.y += wave.speed;
-        if (wave.y > window.innerHeight) wave.y = 0;
-
-        // Добавляем колебания
-        wave.x += Math.sin(wave.angle) * 0.5;
-        wave.angle += 0.01;
-
-        // Рисуем волну
-        waterCtx.beginPath();
-        waterCtx.arc(wave.x, wave.y, wave.size, 0, Math.PI * 2);
-        waterCtx.fillStyle = "rgba(255, 255, 255, 0.2)";
-        waterCtx.fill();
-    });
-
-    requestAnimationFrame(updateWaves);
-}
-
-// Добавляем интерактивность (рябь от курсора)
-window.addEventListener("mousemove", (event) => {
-    for (let i = 0; i < 10; i++) {
-        waves.push({
-            x: event.clientX,
-            y: event.clientY,
-            size: Math.random() * 10 + 5,
-            speed: Math.random() * 2 + 1,
-            angle: Math.random() * Math.PI * 2,
-        });
-    }
-});
-
-updateWaves();
