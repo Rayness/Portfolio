@@ -211,7 +211,46 @@ body.dark-theme #theme-toggle {
     border-radius: 8px;
 }
 
+.project-description {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Ограничение до 3 строк */
+    -webkit-box-orient: vertical;
+}
+
 .btn {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease-in-out;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+
+.btn_modal {
     display: inline-block;
     background: #333;
     color: #fff;
@@ -222,7 +261,7 @@ body.dark-theme #theme-toggle {
     transition: all 0.3s ease-in-out;
 }
 
-.btn:hover {
+.btn_modal:hover {
     background: #555;
     transform: scale(1.1); /* Увеличение кнопки */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
