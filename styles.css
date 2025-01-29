@@ -38,6 +38,11 @@ body.dark-theme .btn:hover {
 
 /* Конец темной темы */
 
+/* Стили для "Обо мне" */
+.about_me {
+    background-color: #121212;
+}
+
 /* Стили для кнопки переключения темы */
 .theme-switcher {
     position: fixed;
@@ -167,6 +172,12 @@ body.dark-theme #theme-toggle {
     animation-delay: 0.5s;
 }
 
+.section p {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
 .section {
     padding: 50px 0;
 }
@@ -181,9 +192,9 @@ body.dark-theme #theme-toggle {
 
 .projects {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 .project {
@@ -191,7 +202,6 @@ body.dark-theme #theme-toggle {
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    background: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
@@ -203,10 +213,18 @@ body.dark-theme #theme-toggle {
     transition: all 0.5s ease-in-out;
 }
 
+
 .project.visible {
     opacity: 1;
+    background-color: rgba(255, 255, 255, 0.2); /* Частично прозрачный фон */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px); /* Размытие фона */
     transform: scale(1);
     transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.project.visible:hover {
+    transform: scale(1.05); /* Эффект увеличения при наведении */
 }
 
 .project img {
