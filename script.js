@@ -101,8 +101,15 @@ window.addEventListener("mousemove", (event) => {
     cursorY = event.clientY;
 });
 
+// script.js
+
+let time = 0; // Переменная времени для анимации
+
 function connectParticles() {
     const connectionDistance = 150; // Максимальное расстояние для связи частиц
+
+    // Увеличиваем время на каждом кадре
+    time += 0.01;
 
     // Связываем частицы между собой
     for (let a = 0; a < particlesArray.length; a++) {
@@ -112,8 +119,12 @@ function connectParticles() {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance < connectionDistance) {
-                ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / connectionDistance})`;
-                ctx.lineWidth = 0.5;
+                const opacity = 1 - distance / connectionDistance; // Прозрачность
+                const baseLineWidth = 2 - distance / connectionDistance; // Базовая толщина линии
+                const animatedLineWidth = baseLineWidth + Math.sin(time) * 0.5; // Анимация толщины
+
+                ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                ctx.lineWidth = animatedLineWidth; // Устанавливаем анимированную толщину
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x + particlesArray[a].parallaxOffsetX, particlesArray[a].y + particlesArray[a].parallaxOffsetY);
                 ctx.lineTo(particlesArray[b].x + particlesArray[b].parallaxOffsetX, particlesArray[b].y + particlesArray[b].parallaxOffsetY);
@@ -129,8 +140,12 @@ function connectParticles() {
         const distanceToCursor = Math.sqrt(dx * dx + dy * dy);
 
         if (distanceToCursor < connectionDistance) {
-            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distanceToCursor / connectionDistance})`;
-            ctx.lineWidth = 0.5;
+            const opacity = 1 - distanceToCursor / connectionDistance; // Прозрачность
+            const baseLineWidth = 2 - distanceToCursor / connectionDistance; // Базовая толщина линии
+            const animatedLineWidth = baseLineWidth + Math.sin(time) * 0.5; // Анимация толщины
+
+            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+            ctx.lineWidth = animatedLineWidth; // Устанавливаем анимированную толщину
             ctx.beginPath();
             ctx.moveTo(particle.x + particle.parallaxOffsetX, particle.y + particle.parallaxOffsetY);
             ctx.lineTo(cursorX, cursorY);
