@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Частицы
 
+// script.js
+
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -48,9 +50,10 @@ class Particle {
         this.speedX = speedX;
         this.speedY = speedY;
         this.depth = depth;
-        this.color = "#fff"; // Начальный цвет (для светлой темы)
+        this.color = "#fff";
         this.parallaxOffsetX = 0;
         this.parallaxOffsetY = 0;
+        this.frequency = Math.random() * 0.05 + 0.01; // Частота анимации для каждой частицы
     }
 
     draw() {
@@ -101,8 +104,6 @@ window.addEventListener("mousemove", (event) => {
     cursorY = event.clientY;
 });
 
-// script.js
-
 let time = 0; // Переменная времени для анимации
 
 function connectParticles() {
@@ -121,9 +122,19 @@ function connectParticles() {
             if (distance < connectionDistance) {
                 const opacity = 1 - distance / connectionDistance; // Прозрачность
                 const baseLineWidth = 2 - distance / connectionDistance; // Базовая толщина линии
-                const animatedLineWidth = baseLineWidth + Math.sin(time) * 0.5; // Анимация толщины
+                const animatedLineWidth = baseLineWidth + Math.sin(time * particlesArray[a].frequency) * 0.5; // Анимация толщины
 
-                ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                // Градиентный цвет линии
+                const gradient = ctx.createLinearGradient(
+                    particlesArray[a].x + particlesArray[a].parallaxOffsetX,
+                    particlesArray[a].y + particlesArray[a].parallaxOffsetY,
+                    particlesArray[b].x + particlesArray[b].parallaxOffsetX,
+                    particlesArray[b].y + particlesArray[b].parallaxOffsetY
+                );
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                gradient.addColorStop(1, `rgba(100, 200, 255, ${opacity})`);
+
+                ctx.strokeStyle = gradient;
                 ctx.lineWidth = animatedLineWidth; // Устанавливаем анимированную толщину
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x + particlesArray[a].parallaxOffsetX, particlesArray[a].y + particlesArray[a].parallaxOffsetY);
@@ -142,9 +153,19 @@ function connectParticles() {
         if (distanceToCursor < connectionDistance) {
             const opacity = 1 - distanceToCursor / connectionDistance; // Прозрачность
             const baseLineWidth = 2 - distanceToCursor / connectionDistance; // Базовая толщина линии
-            const animatedLineWidth = baseLineWidth + Math.sin(time) * 0.5; // Анимация толщины
+            const animatedLineWidth = baseLineWidth + Math.sin(time * particle.frequency) * 0.5; // Анимация толщины
 
-            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+            // Градиентный цвет линии
+            const gradient = ctx.createLinearGradient(
+                particle.x + particle.parallaxOffsetX,
+                particle.y + particle.parallaxOffsetY,
+                cursorX,
+                cursorY
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+            gradient.addColorStop(1, `rgba(100, 200, 255, ${opacity})`);
+
+            ctx.strokeStyle = gradient;
             ctx.lineWidth = animatedLineWidth; // Устанавливаем анимированную толщину
             ctx.beginPath();
             ctx.moveTo(particle.x + particle.parallaxOffsetX, particle.y + particle.parallaxOffsetY);
@@ -210,7 +231,6 @@ if (savedTheme === "dark") {
 } else {
     updateParticleColors(false);
 }
-
 
 // Модальные окна
 // script.js
