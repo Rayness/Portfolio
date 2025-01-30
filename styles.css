@@ -41,6 +41,8 @@ body.dark-theme .btn:hover {
 /* Стили для "Обо мне" */
 .about_me {
     background-color: #121212;
+    border-radius: 8px;
+    padding: 20px;
 }
 
 /* Стили для кнопки переключения темы */
