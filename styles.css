@@ -27,6 +27,11 @@ body.dark-theme .project {
     border-color: #444;
 }
 
+body.dark-theme .project.visible {
+    background-color: rgba(34, 34, 34, 0.6); /* Частично прозрачный фон */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 body.dark-theme .btn {
     background: #555;
 }
@@ -35,12 +40,19 @@ body.dark-theme .btn:hover {
     background: #777;
 }
 
+body.dark-theme .about-content {
+    background-color: rgba(34, 34, 34, 0.6); /* Частично прозрачный фон */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px); /* Размытие фона */
+    border-color: #444;
+}
 
 /* Конец темной темы */
 
 /* Стили для "Обо мне" */
-.about_me {
-    background-color: #121212;
+.about-content {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
 }
@@ -218,9 +230,6 @@ body.dark-theme #theme-toggle {
 
 .project.visible {
     opacity: 1;
-    background-color: rgba(255, 255, 255, 0.2); /* Частично прозрачный фон */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px); /* Размытие фона */
     transform: scale(1);
     transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
