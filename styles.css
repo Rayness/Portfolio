@@ -30,6 +30,7 @@ body.dark-theme .project {
 body.dark-theme .project.visible {
     background-color: rgba(34, 34, 34, 0.6); /* Частично прозрачный фон */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px); /* Размытие фона */
 }
 
 body.dark-theme .btn {
@@ -43,7 +44,7 @@ body.dark-theme .btn:hover {
 body.dark-theme .about-content {
     background-color: rgba(34, 34, 34, 0.6); /* Частично прозрачный фон */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px); /* Размытие фона */
+    backdrop-filter: blur(4px); /* Размытие фона */
     border-color: #444;
 }
 
@@ -55,6 +56,7 @@ body.dark-theme .about-content {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
+    text-align: center;
 }
 
 /* Стили для кнопки переключения темы */
@@ -315,6 +317,11 @@ body.dark-theme #theme-toggle {
     padding: 10px 20px;
     border-radius: 20px;
     font-size: 0.9rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.skills-list li:hover {
+    transform: scale(1.1);
 }
 
 .contact-form {
