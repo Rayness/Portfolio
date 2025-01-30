@@ -59,6 +59,10 @@ body.dark-theme .about-content {
     text-align: center;
 }
 
+.about-content p {
+    padding-bottom: 10px;
+}
+
 /* Стили для кнопки переключения темы */
 .theme-switcher {
     position: fixed;
